@@ -10,9 +10,9 @@ jsDelivr.
 
 ```
 <subject repo>/            public, Pages from main, folder /
-  index.html               the hub loader: loads group-ui at the version in group-version
-  group-version            one line: the hub UI version ("3" = newest 3.x.x)
-  item-version             one line: the exact item-ui tag (written by publishing)
+  index.html               the hub loader: loads group-ui at the version in .grouprc
+  .grouprc            one line: the hub UI version ("3" = newest 3.x.x)
+  .itemrc             one line: the exact item-ui tag (written by publishing)
   boot.json                the sign-in theme only ({} until you add one)
   index.enc                encrypted index: title, books, settings (after the first publish)
   r.html q.html            reader and quiz pages, opened as r.html#b=<book id>
@@ -27,13 +27,20 @@ subject.
 
 ## Versions
 
-`group-version` and `item-version` are one-line files, so a release can change
+`.grouprc` and `.itemrc` are one-line files, so a release can change
 them without touching anything else:
 
 | File | Holds | Who sets it |
 |---|---|---|
-| `group-version` | `3` (newest 3.x.x), `3.1` or `3.1.0` | you, or the release action of group-ui |
-| `item-version` | an exact tag such as `3.4.0` | publishing (`build_pool.py`), or the release action of item-ui |
+| `.grouprc` | `3` (newest 3.x.x), `3.1` or `3.1.0` | you, or `update-rc.yml` after a group-ui release (a pull request that sets the major) |
+| `.itemrc` | an exact tag such as `3.4.0` | publishing (`build_pool.py`), or `update-rc.yml` after an item-ui release (a pull request) |
+
+The release workflows of item-ui and group-ui send the event (secret
+`TEMPLATE_UPDATE_TOKEN` there); merging the pull request adopts the version.
+Needs "Allow GitHub Actions to create and approve pull requests" in this repo's
+Actions settings. `.nojekyll` must stay: without it GitHub Pages hides the two
+dot files and the hub cannot start. Existing subject sites are moved by
+`update-subject.yml` in `eckko/actions`.
 
 ## Start a new subject
 
