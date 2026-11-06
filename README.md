@@ -37,8 +37,7 @@ them without touching anything else:
 
 ## Start a new subject
 
-1. **Use this template → Create a new repository** (public), or run
-   **Create subject** in `eckko/actions`.
+1. **Use this template → Create a new repository** (public).
 2. Settings → Pages → Deploy from a branch, `main`, `/ (root)`.
 3. Add the secret `SUBJECT_KEY` and make the **check** workflow a required
    check for `main`.
