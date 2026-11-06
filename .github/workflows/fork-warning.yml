@@ -1,7 +1,7 @@
-# Warns when this repo has been forked. GitHub cannot switch forking off
-# for a public repo, so the next best thing is to find out quickly: this
-# job fails (and GitHub emails you) when the fork count is above zero.
-# Copy it to .github/workflows/fork-warning.yml in the subject repo.
+# Warns when this repo has been forked. GitHub cannot switch forking off for
+# a public repo, so the next best thing is to find out quickly: this job
+# fails (and GitHub emails you) when the fork count is above zero. A private
+# repo is skipped: it has no public forks to find.
 name: fork-warning
 
 on:
@@ -20,9 +20,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          forks=$(gh api "repos/$GITHUB_REPOSITORY" --jq .forks_count)
+          info=$(gh api "repos/$GITHUB_REPOSITORY" --jq '[.private, .forks_count] | @tsv')
+          private=${info%%$'\t'*}
+          forks=${info##*$'\t'}
+          if [ "$private" = "true" ]; then
+            echo "private repo; nothing to check."
+            exit 0
+          fi
           echo "forks: $forks"
           if [ "$forks" -gt 0 ]; then
-            echo "::error::This repo has $forks fork(s). Ask GitHub to remove them, or rotate the key."
+            echo "::error::This repo has $forks fork(s). Check them and ask GitHub to remove any you did not expect (for a subject site, also consider rotating the key)."
             exit 1
           fi
