@@ -1,7 +1,7 @@
 This repo is the shell for one subject site: a public GitHub Pages site whose
 books are all encrypted. It holds `index.html` (a fixed loader), `boot.json`
 (the sign-in theme only), `.grouprc`, `.itemrc`, `index.enc`, `r.html`,
-`q.html`, `.theme/`, a flat pool of `xx/<30 hex>.bin` files and the workflows.
+`q.html`, `.theme/`, a pool of `bin/xx/<30 hex>.bin` files and the workflows.
 It must never name the subject or a book anywhere readable (page, file name,
 workflow, commit message). Never add a plain book file, image or key, never
 edit the pool by hand, never change a book's id.

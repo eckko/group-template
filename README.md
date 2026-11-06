@@ -17,7 +17,7 @@ jsDelivr.
   index.enc                encrypted index: title, books, settings (after the first publish)
   r.html q.html            reader and quiz pages, opened as r.html#b=<book id>
   .theme/                  sign-in pictures and styles (no book names)
-  xx/<30 hex>.bin          the encrypted pool, flat, names say nothing
+  bin/xx/<30 hex>.bin      the encrypted pool, names say nothing
   .github/workflows/       check-site.yml, fork-warning.yml, auto-pr.yml
 ```
 
